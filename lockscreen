@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# LD_LIBRARY_PATH for xdotool
+export LD_LIBRARY_PATH=$HOME/42_utils/lib
+
+# PATH for ease of writing
+export PATH=$PATH:$HOME/42_utils/bin
+
+export LOCKME=$1
+
+if [[ "$LOCKME" == "true" ]]; then
+	until grep '"ft_lock":' <(xwininfo -tree -root) > /dev/null; do
+		ft_lock
+		sleep 1
+	done
+fi
+
+./mplayer_wrapper 854 480
+sleep 1
+node websocket_client.js $(cat $PWD/domain) &
+pid=$!
+
+if [[ "$LOCKME" == "true" ]]; then
+	while pgrep -f "ft_lock +-d" > /dev/null; do
+		w_id=$(xwininfo -root -tree | grep ft_lock | head -n 1 | sed 's/ *\(0x[a-z0-9]\+\).*/\1/')
+		xdotool click 1
+		sleep 1
+	done
+	kill -INT $pid
+	pkill mplayer
+fi

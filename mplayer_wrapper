@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# LD_LIBRARY_PATH for xdotool
+export LD_LIBRARY_PATH=$HOME/42_utils/lib
+
+# PATH for ease of writing
+export PATH=$PATH:$HOME/42_utils/bin
+
+if [[ ! -p /tmp/mplay_ft_lock ]]; then
+	mkfifo /tmp/mplay_ft_lock
+fi
+
+mplayer -xy 854 \
+		-title "pml_reborn" \
+		-vf scale \
+		-zoom \
+		-geometry "50%:50%" \
+		-idle \
+		-quiet \
+		-slave \
+		-input file=/tmp/mplay_ft_lock 2>&1 &

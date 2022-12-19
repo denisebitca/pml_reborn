@@ -1,0 +1,7 @@
+node_modules
+./bin/mplayer
+./bin/xdotool
+./bin/streamlink
+./bin/youtube-dl
+./lib/libxdo.so.3
+domain

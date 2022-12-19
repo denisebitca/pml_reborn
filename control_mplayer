@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# LD_LIBRARY_PATH for xdotool
+export LD_LIBRARY_PATH=$HOME/42_utils/lib
+
+# PATH for ease of writing
+export PATH=$PATH:$HOME/42_utils/bin
+
+MEDIA_URL=$1
+echo pause &> /tmp/mplay_ft_lock
+echo loadfile $MEDIA_URL &> /tmp/mplay_ft_lock
+echo hide &> /tmp/mplay_ft_lock
+echo vo_ontop 1 &> /tmp/mplay_ft_lock
+echo loop 100000000 &> /tmp/mplay_ft_lock
+while true
+do
+    windows=$(wmctrl -l)
+    if [[ "$windows" =~ "pml_reborn" ]];
+    then
+		sleep 2
+		xdotool set_window --overrideredirect 1 $(xdotool search --name "pml_reborn")
+		xdotool windowunmap $(xdotool search --name "pml_reborn")
+		xdotool windowmap $(xdotool search --name "pml_reborn")
+		echo seek 0 2 &> /tmp/mplay_ft_lock
+        break
+    fi
+    # delay until next loop iteration
+done

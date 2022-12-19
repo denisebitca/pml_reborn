@@ -13,7 +13,7 @@ ws.on('message', message => {
 	console.log(message.toString());
 
 	if (!message.toString().startsWith("https://youtube.com") && !message.toString().startsWith("https://youtu.be")) {
-		const streamlinkProcess = childProcess.spawn('./streamlink', ['--stream-url', message.toString(), '480p, 360p, worst']);
+		const streamlinkProcess = childProcess.spawn('./bin/streamlink', ['--stream-url', message.toString(), '480p, 360p, worst']);
 		let streamlinkOutput = '';
 		streamlinkProcess.stdout.on('data', data => {
 			streamlinkOutput += data.toString();
@@ -33,7 +33,7 @@ ws.on('message', message => {
 			}
 		});
 	} else {
-		const youtubeDlProcess = childProcess.spawn('./youtube-dl', ['--get-url', "-f", "best[height<=480]", message.toString()]);
+		const youtubeDlProcess = childProcess.spawn('./bin/youtube-dl', ['--get-url', "-f", "best[height<=480]", message.toString()]);
 		let youtubeDlOutput = '';
 		let youtubeDlOutputError = '';
 		youtubeDlProcess.stdout.on('data', data => {
@@ -45,15 +45,7 @@ ws.on('message', message => {
 		youtubeDlProcess.on('close', code => {
 			console.log(youtubeDlOutput);
 			console.log(youtubeDlOutputError);
-			if (youtubeDlOutputError.startsWith('WARNING') || youtubeDlOutputError.startsWith('ERROR')) {
-				childProcess.spawn('./control_mplayer', [process.cwd() + "/error.png"]);
-				let start = Date.now(),
-					now = start;
-				while (now - start < 4000) {
-					now = Date.now();
-				}
-				childProcess.spawn('./control_mplayer', [message.toString()]);
-			} else {
+			if (!youtubeDlOutputError.startsWith('WARNING') || !youtubeDlOutputError.startsWith('ERROR')) {
 				childProcess.spawn('./control_mplayer', [youtubeDlOutput.slice(0, -1)]);
 			}
 		});
@@ -65,5 +57,4 @@ function exitHandler(options, exitCode) {
 	process.exit();
 }
 
-/*Catch a CTRL+C or kill -INT*/
 process.on('SIGINT', exitHandler.bind(null, {exit:true}));

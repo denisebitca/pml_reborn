@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # LD_LIBRARY_PATH for xdotool
-export LD_LIBRARY_PATH=$HOME/42_utils/lib
+export LD_LIBRARY_PATH=$PWD/lib
 
 # PATH for ease of writing
-export PATH=$PATH:$HOME/42_utils/bin
+export PATH=$PATH:$PWD/bin
 
 export LOCKME=$1
 
@@ -15,7 +15,7 @@ if [[ "$LOCKME" == "true" ]]; then
 	done
 fi
 
-./mplayer_wrapper 854 480
+./mplayer_wrapper 854 "50%:50%"
 sleep 1
 node websocket_client.js $(cat $PWD/domain) &
 pid=$!

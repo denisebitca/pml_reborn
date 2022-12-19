@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # LD_LIBRARY_PATH for xdotool
-export LD_LIBRARY_PATH=$HOME/42_utils/lib
+export LD_LIBRARY_PATH=$PWD/lib
 
 # PATH for ease of writing
-export PATH=$PATH:$HOME/42_utils/bin
+export PATH=$PATH:$PWD/bin
 
 MEDIA_URL=$1
 echo pause &> /tmp/mplay_ft_lock
@@ -14,8 +14,8 @@ echo vo_ontop 1 &> /tmp/mplay_ft_lock
 echo loop 100000000 &> /tmp/mplay_ft_lock
 while true
 do
-    windows=$(wmctrl -l)
-    if [[ "$windows" =~ "pml_reborn" ]];
+    windows=$(xwininfo -name "pml_reborn" 2>&1)
+    if [[ "$windows" != "xwininfo: error: No window with name \"pml_reborn\" exists!" ]];
     then
 		sleep 2
 		xdotool set_window --overrideredirect 1 $(xdotool search --name "pml_reborn")

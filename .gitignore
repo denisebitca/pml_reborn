@@ -1,7 +1,9 @@
 node_modules
-./bin/mplayer
-./bin/xdotool
-./bin/streamlink
-./bin/youtube-dl
-./lib/libxdo.so.3
+bin/xdotool
+bin/streamlink
+bin/youtube-dl
+bin/mplayer
+lib/libxdo.so.3
+build/xdotool
+build/mplayer
 domain

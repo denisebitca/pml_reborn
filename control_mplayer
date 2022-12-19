@@ -45,6 +45,7 @@ do
     if [[ "$windows" != "xwininfo: error: No window with name \"pml_reborn\" exists!" ]];
     then
 		sleep 2
+		touch washere
 		xdotool set_window --overrideredirect 1 $(xdotool search --name "pml_reborn")
 		xdotool windowunmap $(xdotool search --name "pml_reborn")
 		xdotool windowmap $(xdotool search --name "pml_reborn")

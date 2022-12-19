@@ -10,11 +10,9 @@ if [[ ! -p /tmp/mplay_ft_lock ]]; then
 	mkfifo /tmp/mplay_ft_lock
 fi
 
-mplayer -x $1 \
+mplayer -include "mplayer.conf" \
 		-title "pml_reborn" \
-		-vf scale \
-		-zoom \
-		-geometry $2 \
+		-ontop \
 		-idle \
 		-quiet \
 		-slave \

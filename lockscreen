@@ -34,8 +34,8 @@ if [[ "$LOCKME" == "true" ]]; then
 	done
 fi
 
-# ./mplayer_wrapper <width> <geometry> - https://linux.die.net/man/1/mplayer
-./mplayer_wrapper 854 "50%:50%"
+# Want to change how your video is placed on screen? edit mplayer.conf.
+./mplayer_wrapper
 sleep 1
 
 if [[ "$LOCKME" == "true" ]]; then

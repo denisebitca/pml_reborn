@@ -10,3 +10,6 @@
                             |______|                                                    
 
 < --- under the GPLv3 license / https://github.com/denisebitca/pml_reborn --- >
+< --- based on jmaia's work available at https://github.com/jerem-ma/pimp_my_lock --->
+
+< --- compilation starting: this will take time! --- >

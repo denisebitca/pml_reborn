@@ -1,0 +1,3 @@
+Done! In order to use pml_reborn (thanks to jmaia for his original work),
+please refer to the README.md. Don't hesitate to run "make clean" after this,
+the dependencies take up space.

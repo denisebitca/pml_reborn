@@ -1,17 +1,44 @@
 #!/bin/bash
 
+#
+#  _____    __  __   _                 _____    ______   ____     ____    _____    _   _ 
+# |  __ \  |  \/  | | |               |  __ \  |  ____| |  _ \   / __ \  |  __ \  | \ | |
+# | |__) | | \  / | | |               | |__) | | |__    | |_) | | |  | | | |__) | |  \| |
+# |  ___/  | |\/| | | |               |  _  /  |  __|   |  _ <  | |  | | |  _  /  | . ` |
+# | |      | |  | | | |____           | | \ \  | |____  | |_) | | |__| | | | \ \  | |\  |
+# |_|      |_|  |_| |______|          |_|  \_\ |______| |____/   \____/  |_|  \_\ |_| \_|
+#                             ______                                                     
+#                            |______|                                                    
+#
+# < --- under the GPLv3 license / https://github.com/denisebitca/pml_reborn --- >
+# < --- based on jmaia's work available at https://github.com/jerem-ma/pimp_my_lock --->
+#
+# timing might be a little off, if anyone wants to test the script on 42Paris Macs,
+# it would be kind
+#
+#
+
 # LD_LIBRARY_PATH for xdotool
 export LD_LIBRARY_PATH=$PWD/lib
 
 # PATH for ease of writing
 export PATH=$PATH:$PWD/bin
 
+# PATH / URL
 MEDIA_URL=$1
+
+# Communicating with mplayer using a named pipe
 echo pause &> /tmp/mplay_ft_lock
 echo loadfile $MEDIA_URL &> /tmp/mplay_ft_lock
 echo hide &> /tmp/mplay_ft_lock
 echo vo_ontop 1 &> /tmp/mplay_ft_lock
-echo loop 100000000 &> /tmp/mplay_ft_lock
+echo loop 100000000 &> /tmp/mplay_ft_lock # WORKAROUND: broken looping
+
+# Waiting for the window to respawn so that overrideredirect can be applied
+# (allows the window to be in front of ft_lock)
+#
+# Taken partially from https://askubuntu.com/questions/885034/how-can-i-wait-until-an-application-has-started 
+
 while true
 do
     windows=$(xwininfo -name "pml_reborn" 2>&1)
@@ -24,5 +51,4 @@ do
 		echo seek 0 2 &> /tmp/mplay_ft_lock
         break
     fi
-    # delay until next loop iteration
 done

@@ -1,5 +1,6 @@
 XDOTOOL := bin/xdotool
 STARTMSG := .startmessage
+ENDMSG := .endmessage
 STREAMLINK := bin/streamlink
 YOUTUBE-DL := bin/youtube-dl
 MPLAYER := bin/mplayer
@@ -54,7 +55,8 @@ clean:
 fclean: clean
 	rm -vf $(DLED_BINARIES)
 	rm -vf $(DLED_LIBRARIES)
-	rm -vf .endmessage
+	rm -vf $(STARTMSG)
+	rm -vf $(ENDMSG)
 
 re: fclean all
 

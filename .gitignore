@@ -6,4 +6,6 @@ bin/mplayer
 lib/libxdo.so.3
 build/xdotool
 build/mplayer
+.startmessage
+.endmessage
 domain

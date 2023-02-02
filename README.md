@@ -25,8 +25,22 @@ This work is licensed under the GPLv3 license. A copy of it is in the file LICEN
 
 ## Installation
 
-A Makefile is included to install all the binaries necessary for pml_reborn to work. In order to download and install everything, run ``make``.
+A Makefile is included to compile/download all the binaries necessary for pml_reborn to work. In order to download and setup everything, run ``make``.
 
 ## Configuration
 
-TODO
+Edit mpv.conf to change the placement of the video. Read more about MPV configuration files in [here](https://github.com/mpv-player/mpv/blob/master/etc/mpv.conf). By default, the video will take up the whole screen.
+
+Run ``./lockscreen true`` to lock the screen and ``./lockscreen false`` to run the video player, but not lock the screen.
+
+By default, the lockscreen uses a websocket server that allows you to change your videos on the fly as the program is running.
+
+Setup https://github.com/denisebitca/pml_reborn_wss if you want this to work. You will have to put your websocket server's domain in the file ``./domain``, with the following format:
+
+```
+wss://[domain]:[port]
+```
+
+Your websocket server needs to be accessible to the Internet.
+
+Edit ``./lockscreen`` if you do not wish to use a websocket server - comments are present to show you what you need to remove in order to use it without a websocket server.

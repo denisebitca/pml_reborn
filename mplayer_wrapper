@@ -6,14 +6,11 @@ export LD_LIBRARY_PATH=$PWD/lib
 # PATH for ease of writing
 export PATH=$PATH:$PWD/bin
 
-if [[ ! -p /tmp/mplay_ft_lock ]]; then
-	mkfifo /tmp/mplay_ft_lock
-fi
-
-mplayer -include "mplayer.conf" \
-		-title "pml_reborn" \
-		-ontop \
-		-idle \
-		-quiet \
-		-slave \
-		-input file=/tmp/mplay_ft_lock 2>&1 &
+mpv --title="pml_reborn" \
+	--ontop \
+	--idle \
+	--no-audio \
+	--config=yes \
+	--hwdec \
+	--config-dir=. \
+	--input-ipc-server=/tmp/mplay_ft_lock 2>&1 &

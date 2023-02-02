@@ -27,13 +27,15 @@ export PATH=$PATH:$PWD/bin
 # PATH / URL
 MEDIA_URL=$1
 
-# Communicating with mplayer using a named pipe
-echo pause &> /tmp/mplay_ft_lock
-echo loadfile $MEDIA_URL &> /tmp/mplay_ft_lock
-echo hide &> /tmp/mplay_ft_lock
-echo vo_ontop 1 &> /tmp/mplay_ft_lock
-echo loop 100000000 &> /tmp/mplay_ft_lock # WORKAROUND: broken looping
+talk()
+{
+	cat <(echo "$1") | nc -q 1 -U /tmp/mplay_ft_lock
+}
 
+# Communicating with mplayer using a IPC socket
+
+talk "stop"
+talk "loadfile $MEDIA_URL"
 # Waiting for the window to respawn so that overrideredirect can be applied
 # (allows the window to be in front of ft_lock)
 #
@@ -45,11 +47,11 @@ do
     if [[ "$windows" != "xwininfo: error: No window with name \"pml_reborn\" exists!" ]];
     then
 		sleep 2
-		touch washere
-		xdotool set_window --overrideredirect 1 $(xdotool search --name "pml_reborn")
-		xdotool windowunmap $(xdotool search --name "pml_reborn")
-		xdotool windowmap $(xdotool search --name "pml_reborn")
-		echo seek 0 2 &> /tmp/mplay_ft_lock
+		ID=$(xwininfo -name "pml_reborn" | grep "pml_reborn" | cut -d' ' -f4)
+		xdotool set_window --overrideredirect 1 "$ID"
+		xdotool windowunmap "$ID"
+		xdotool windowmap "$ID"
+		talk "seek 0 exact"
         break
     fi
 done

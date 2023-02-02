@@ -47,7 +47,7 @@ if [[ "$LOCKME" == "true" ]]; then
 		sleep 1
 	done
 	kill -INT $pid #if you are not using a websocket server, comment this!
-	pkill mplayer
+	pkill mpv
 	exit 0;
 fi
 

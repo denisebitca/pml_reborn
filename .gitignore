@@ -2,10 +2,11 @@ node_modules
 bin/xdotool
 bin/streamlink
 bin/youtube-dl
-bin/mplayer
-lib/libxdo.so.3
+bin/mpv
+lib/*
+!lib/.gitkeep
 build/xdotool
-build/mplayer
+build/mpv
 .startmessage
 .endmessage
 domain

@@ -53,7 +53,7 @@ ws.on('message', message => {
 });
 
 function exitHandler(options, exitCode) {
-	childProcess.spawn('pkill', ['mplayer']);
+	childProcess.spawn('pkill', ['mpv']);
 	process.exit();
 }
 

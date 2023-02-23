@@ -34,13 +34,13 @@ if [[ "$LOCKME" == "true" ]]; then
 	done
 fi
 
-# Want to change how your video is placed on screen? edit mplayer.conf.
+# Want to change how your video is placed on screen? edit mpv.conf.
 ./mplayer_wrapper
 sleep 1
 
 if [[ "$LOCKME" == "true" ]]; then
-	node websocket_client.js $(cat $PWD/domain) &
-	pid=$!
+	node websocket_client.js $(cat $PWD/domain) & #if you are not using a websocket server, comment this!
+	pid=$! #if you are not using a websocket server, comment this!
 	while pgrep -f "ft_lock +-d" > /dev/null; do
 		w_id=$(xwininfo -root -tree | grep ft_lock | head -n 1 | sed 's/ *\(0x[a-z0-9]\+\).*/\1/')
 		xdotool click 1 #comment this if you want your screen to shut off on idle!
@@ -51,7 +51,7 @@ if [[ "$LOCKME" == "true" ]]; then
 	exit 0;
 fi
 
-node websocket_client.js $(cat $PWD/domain)
+node websocket_client.js $(cat $PWD/domain) #if you are not using a websocket server, comment this!
 
 # 
 # if you don't want to be able to change your lockscreen on the fly

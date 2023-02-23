@@ -21,12 +21,6 @@ ws.on('message', message => {
 		streamlinkProcess.on('close', code => {
 			console.log(streamlinkOutput);
 			if (streamlinkOutput.startsWith('error')) {
-				childProcess.spawn('./control_mplayer', [process.cwd() + "/error.png"]);
-				let start = Date.now(),
-					now = start;
-				while (now - start < 4000) {
-					now = Date.now();
-				}
 				childProcess.spawn('./control_mplayer', [message.toString()]);
 			} else {
 				childProcess.spawn('./control_mplayer', [streamlinkOutput.slice(0, -1)]);

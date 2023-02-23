@@ -13,7 +13,6 @@ DLED_BINARIES := $(XDOTOOL) \
 			$(MPV)
 DLED_LIBRARIES := $(XDOTOOL_LIB)
 STREAMLINK_RELEASE := https://github.com/streamlink/streamlink-appimage/releases/download/5.1.2-2/streamlink-5.1.2-2-cp311-cp311-manylinux2014_x86_64.AppImage
-YOUTUBE-DL_RELEASE := https://yt-dl.org/downloads/latest/youtube-dl
 
 all: $(STARTMSG) $(MPV) $(XDOTOOL) $(STREAMLINK) $(YOUTUBE-DL) $(ENDMSG)
 
@@ -46,8 +45,7 @@ $(STREAMLINK):
 	@echo "-\e[92m\e[1m- STREAMLINK DONE --\e[0m"
 
 $(YOUTUBE-DL):
-	curl -L $(YOUTUBE-DL_RELEASE) -o bin/youtube-dl
-	chmod +x bin/youtube-dl
+	./youtube-dl_build_script.sh
 	@echo "-\e[92m\e[1m- YOUTUBE-DL DONE --\e[0m"
 
 $(ENDMSG):

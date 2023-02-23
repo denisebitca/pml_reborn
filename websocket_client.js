@@ -39,7 +39,7 @@ ws.on('message', message => {
 		youtubeDlProcess.on('close', code => {
 			console.log(youtubeDlOutput);
 			console.log(youtubeDlOutputError);
-			if (!youtubeDlOutputError.startsWith('WARNING') || !youtubeDlOutputError.startsWith('ERROR')) {
+			if (!youtubeDlOutputError.startsWith('ERROR')) {
 				childProcess.spawn('./control_mplayer', [youtubeDlOutput.slice(0, -1)]);
 			}
 		});
